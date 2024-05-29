@@ -1,0 +1,14 @@
+mkdir .venv 
+pipenv install
+pipenv install django
+pipenv shell
+django-admin startproject instagram_clone .
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+
+
+python manage.py startapp users
+python manage.py startapp posts
+python manage.py createsuperuser

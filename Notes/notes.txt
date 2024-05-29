@@ -1,0 +1,16 @@
+username:
+
+username: superuser
+pass: superuser
+
+username: nouman
+pass: admin@123
+
+username: shahmeer
+pass: admin@123
+
+
+***************************************
+
+login view:
+https://www.pythontutorial.net/django-tutorial/django-loginview/
