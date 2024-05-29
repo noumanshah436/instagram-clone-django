@@ -1,20 +1,17 @@
 {% extends 'main.html' %} 
+{% load crispy_forms_tags %} 
 {% block content %}
-
 <div class="header-bar">
-    <h1>Register</h1>
+  <h1>Register</h1>
 </div>
-
 <div class="card-body">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input style="margin-top:10px ;" class="button" type="submit" value="Register">
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+  <form method="POST">
+    {% csrf_token %} {{ form | crispy }}
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Register</button>
+      </div>
+  </form>
+  <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </div>
-
-
-
 
 {% endblock content %}

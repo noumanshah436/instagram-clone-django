@@ -18,3 +18,38 @@ python manage.py createsuperuser
 https://www.w3schools.com/django/django_add_bootstrap5.php
 
 pipenv install django-bootstrap-v5
+
+*************************************
+
+pipenv install Pillow
+
+*************************************
+
+Add crispy form:
+
+https://stackoverflow.com/questions/71641974/implementing-django-bootstrap-crispy-forms-into-default-signup-login-pages
+
+
+1)Install crispy_forms form bootstrap 5
+
+pipenv install crispy-bootstrap5
+
+2) Add crispy_forms and crispy_bootstrap5 to installed apps
+
+INSTALLED_APPS = (
+    ...
+    "crispy_forms",
+    "crispy_bootstrap5",
+    ...
+)
+
+3) add crispy form attr to settings.py file
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+4) To use crispy form in templates, add {% load crispy_forms_filters %} and {% load crispy_forms_tags %} on top of your sign up and login page.
+
+and declare form as crispy i.e {{forms| crispy}} or field as {{ form.fieldname|as_crispy_field }}
+
+*************************************
