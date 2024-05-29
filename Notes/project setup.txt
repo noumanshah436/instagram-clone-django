@@ -12,3 +12,9 @@ python manage.py runserver
 python manage.py startapp users
 python manage.py startapp posts
 python manage.py createsuperuser
+
+****************************************
+
+https://www.w3schools.com/django/django_add_bootstrap5.php
+
+pipenv install django-bootstrap-v5
