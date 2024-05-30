@@ -1,0 +1,32 @@
+<div class="card mb-3">
+    <div class="card-header d-flex">
+        <div class="d-flex align-items-center flex-fill">
+            <a href="{% url 'profile' %}" class="mr-3 no-text-decoration me-3">
+                <img src="{{ post.author.profile.image.url }}" class="profile_pic rounded-circle">
+            </a>
+            <a href="{% url 'profile' %}" class="lead nounderline" title="{{ post.author.username }}">
+                <strong>{{ post.author.username }}</strong>
+            </a>
+        </div>
+        {% if user == post.author %}                       
+            <div class="dropdown me-auto">
+                <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'posts:post-update' post.id %}">edit</a></li>
+                    <li><a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">report</a></li>
+                    <li><hr class="dropdown-divider border-top border-secondary"></li>
+                    <li><a class="dropdown-item text-danger" href="{% url 'posts:post-delete' post.id %}">delete</a></li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <a href="{% url 'posts:post-detail' post.id %}">
+        <img src={{ post.img.url }} class="card-img-top" alt={{post.author}}>
+    </a>
+    <div class="card-body">
+        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text"><small class="text-muted">Last updated {{ post.updated_at | date:"F d, Y"}} </small></p>
+    </div>
+</div>  

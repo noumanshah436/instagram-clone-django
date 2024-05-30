@@ -8,6 +8,8 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"  >
 
     {% if title %}
       <title>Instagram - {{ title }}</title>
@@ -21,6 +23,19 @@
         width: 125px;
         margin-right: 20px;
         margin-bottom: 16px;
+      }
+      .article-img {
+        height: 65px;
+        width: 65px;
+        margin-right: 16px;
+      }
+      .profile_pic {
+        height: 50px;
+        width: 50px;
+      }
+      .nounderline {
+        text-decoration: none !important;
+        color: black;
       }
     </style>
   </head>
