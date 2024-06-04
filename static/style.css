@@ -1,0 +1,13 @@
+.card-profile {
+  display: grid;
+  grid-template-columns: 40px auto;
+}
+
+.card-profile div:nth-child(2) {
+  vertical-align: center;
+  align-items: baseline;
+}
+.home-profile-pic {
+  width: 30px;
+  border-radius: 50%;
+}

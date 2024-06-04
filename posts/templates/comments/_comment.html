@@ -1,0 +1,14 @@
+<div class="container border border-lightgrey justify-content-md-center p-1 pb-2 mt-2">
+    <div class="card-profile p-1">
+        <div class="pt-2">
+            <img src={{ comment.author.profile.image.url }} class="home-profile-pic" />
+        </div>
+        <div class="mt-0">
+            <a href="#" class="text-dark me-2">
+                <h6 class="d-inline">{{  comment.author.username }}</h6>
+            </a>
+            <span class="text-muted">{{ comment.time_diff}}</span>
+            <p class="mb-0">{{ comment.content}}</p>
+        </div>
+    </div>
+</div>

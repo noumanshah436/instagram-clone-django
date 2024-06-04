@@ -1,0 +1,21 @@
+
+python manage.py shell
+
+from django.contrib.auth.models import User
+from posts.models import Post, Comment
+
+
+user = User.objects.first()
+post = Post.objects.first()
+user.comments.create(post=post, content="This is the first comment")
+
+user.comments.all()
+post.comments.all()
+
+***********************************
+
+post = Post.objects.filter(pk=11).first()
+
+post.comments.create(content="This is comment 2", author=User.objects.first())
+
+***********************************

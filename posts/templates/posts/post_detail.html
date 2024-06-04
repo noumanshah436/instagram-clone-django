@@ -1,4 +1,25 @@
 {% extends 'main.html' %} 
+{% load static %}
+
 {% block content %}
+    <!-- post detail -->
     {% include "posts/_post.html" %}
+
+    <!-- new comment form -->
+    <form class="comment-form" post-id={{ post.id }}>
+        <input type="text" id="input-comment-{{ post.id }}" class="form-control" placeholder="Comment" required/>
+        <button type="submit" class="btn btn-primary mt-2 w-100">Comment</button>
+    </form>  
+    
+    <!-- all comments -->
+    <div id="comments-{{ post.id }}">
+        {% for comment in comments %}
+            {% include "comments/_comment.html" with comment=comment only %}
+        {% endfor %}
+    </div>
 {% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'posts/comment.js' %}" async defer></script>
+    {% comment %} <script src="{% static 'posts/comment.js' %}"></script> {% endcomment %}
+{% endblock scripts %}

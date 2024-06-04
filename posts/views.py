@@ -1,8 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.views import View
+from posts.forms import PostForm
+from .models import Post, Comment
+from django.template.loader import render_to_string
 from django.views.generic import (
     ListView,
     DetailView,
@@ -11,17 +15,12 @@ from django.views.generic import (
     DeleteView,
 )
 
-from posts.forms import PostForm
-from .models import Post
-
-# Create your views here.
-
 
 def home(request):
     return render(request, "posts/home.html")
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "posts/home.html"
     context_object_name = "posts"
@@ -39,9 +38,18 @@ class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     context_object_name = "post"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()  # Retrieve the Post instance
+        comments = Comment.objects.filter(post=post).order_by(
+            "-created_at"
+        )  # Order comments by creation date (descending)
+        context["comments"] = comments
+        return context
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -72,3 +80,26 @@ class PostDeleteView(
         if self.request.user == post.author:
             return True
         return False
+
+
+class CommentCreateView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        # check for ajax request
+        if request.META.get("HTTP_X_REQUESTED_WITH") != "XMLHttpRequest":
+            return JsonResponse({"error": "Invalid request"}, status=400)
+
+        pk = request.POST.get("pk")
+        comment_data = request.POST.get("commentData")
+
+        try:
+            post = Post.objects.get(id=pk)
+        except Post.DoesNotExist:
+            return JsonResponse({"error": "Post does not exist."}, status=404)
+
+        comment = Comment(content=comment_data, author=request.user, post=post)
+        comment.save()
+
+        comment_template = render_to_string(
+            "comments/_comment.html", {"comment": comment}
+        )
+        return JsonResponse({"comment_template": comment_template})
