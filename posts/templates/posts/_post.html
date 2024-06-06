@@ -1,10 +1,10 @@
 <div class="card mb-3">
     <div class="card-header d-flex">
         <div class="d-flex align-items-center flex-fill">
-            <a href="{% url 'profile' %}" class="mr-3 no-text-decoration me-3">
+            <a href="{% url 'profile' id=post.author.id %}" class="mr-3 no-text-decoration me-3">
                 <img src="{{ post.author.profile.image.url }}" class="profile_pic rounded-circle">
             </a>
-            <a href="{% url 'profile' %}" class="lead nounderline" title="{{ post.author.username }}">
+            <a href="{% url 'profile' id=post.author.id %}" class="lead nounderline" title="{{ post.author.username }}">
                 <strong>{{ post.author.username }}</strong>
             </a>
         </div>

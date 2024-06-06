@@ -16,10 +16,6 @@ from django.views.generic import (
 )
 
 
-def home(request):
-    return render(request, "posts/home.html")
-
-
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "posts/home.html"
@@ -30,7 +26,7 @@ class PostListView(LoginRequiredMixin, ListView):
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Post
     form_class = PostForm
-    success_url = reverse_lazy("posts:home")
+    success_url = reverse_lazy("home")
     success_message = "Post was created successfully"
 
     def form_valid(self, form):
@@ -72,7 +68,7 @@ class PostDeleteView(
 ):
     model = Post
     context_object_name = "post"
-    success_url = reverse_lazy("posts:home")
+    success_url = reverse_lazy("home")
     success_message = "Post deleted successfully"
 
     def test_func(self):
